@@ -1,15 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { getLatestGames } from "./lib/metacritic";
 
 export default function App() {
+  const [games, setGames] = useState([]);
+  useEffect(() => {
+    getLatestGames().then((games) => {
+      setGames(games);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Image source={{ uri: "https://www.metacritic.com/a/img/catalog/provider/6/3/6-1-4763-13.jpg" }} style={{ width: 215, height: 294 }} />
-      <Text>Testing app</Text>
-      <Button
-        title='Pulsa aquí'
-        onPress={() => alert('Hola')} />
+      {games.map((game) => (
+        <View key={game.slug} style={styles.card}>
+          <Image source={{ uri: game.image }} style={styles.image} />
+          <Text style={styles.title}>{game.title}</Text>
+          <Text style={styles.score}>{game.score}</Text>
+          <Text style={styles.description}>{game.description}</Text>
+        </View>
+      ))}
     </View>
   );
 }
@@ -17,8 +29,25 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  image: {
+    width: 107,
+    height: 147,
+    borderRadius: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#fff",
+  },
+  description: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "green",
+    marginTop: 10,
   },
 });
