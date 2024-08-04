@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
 import { getLatestGames } from "./lib/metacritic";
 
 export default function App() {
@@ -14,6 +14,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
+
       {games.map((game) => (
         <View key={game.slug} style={styles.card}>
           <Image source={{ uri: game.image }} style={styles.image} />
@@ -33,6 +34,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  card: {
+    marginBottom: 42,
+  },
   image: {
     width: 107,
     height: 147,
@@ -42,7 +46,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#fff",
+    color: "black",
+    marginTop: 10,
   },
   description: {
     fontSize: 16,
