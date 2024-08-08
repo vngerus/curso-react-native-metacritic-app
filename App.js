@@ -12,7 +12,7 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar style="light" />
 
       {games.map((game) => (
@@ -23,7 +23,7 @@ export default function App() {
           <Text style={styles.description}>{game.description}</Text>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
